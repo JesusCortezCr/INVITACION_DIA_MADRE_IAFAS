@@ -1,0 +1,1078 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Invitación - Día de la Madre IAFAS</title>
+
+    <style>
+      :root {
+        --azul-noche: #071528;
+        --azul-profundo: #0b2346;
+        --dorado: #d8ad4f;
+        --dorado-claro: #ffe1a1;
+        --blanco: #fffaf2;
+        --rosa: #f8b4c8;
+        --rojo: #a51e35;
+        --texto: #2b2330;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        overflow-x: hidden;
+        font-family: "Georgia", "Times New Roman", serif;
+        color: var(--blanco);
+        background:
+          radial-gradient(
+            circle at 20% 15%,
+            rgba(255, 222, 150, 0.24),
+            transparent 28%
+          ),
+          radial-gradient(
+            circle at 80% 20%,
+            rgba(248, 180, 200, 0.22),
+            transparent 28%
+          ),
+          linear-gradient(135deg, #06101f 0%, #0b2346 42%, #071528 100%);
+        display: grid;
+        place-items: center;
+        padding: 28px;
+      }
+
+      .background-glow {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+      }
+
+      .orb {
+        position: absolute;
+        width: 420px;
+        height: 420px;
+        border-radius: 50%;
+        filter: blur(30px);
+        opacity: 0.23;
+        animation: floatOrb 11s ease-in-out infinite alternate;
+      }
+
+      .orb.one {
+        background: #d8ad4f;
+        left: -140px;
+        top: -90px;
+      }
+
+      .orb.two {
+        background: #f8b4c8;
+        right: -150px;
+        bottom: -120px;
+        animation-delay: -4s;
+      }
+
+      @keyframes floatOrb {
+        from {
+          transform: translate3d(0, 0, 0) scale(1);
+        }
+        to {
+          transform: translate3d(35px, -25px, 0) scale(1.08);
+        }
+      }
+
+      canvas {
+        position: fixed;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .scene {
+        position: relative;
+        z-index: 2;
+        width: min(980px, 100%);
+        perspective: 1400px;
+      }
+
+      .invitation-card {
+        position: relative;
+        border-radius: 34px;
+        min-height: 680px;
+        padding: 3px;
+        background:
+          linear-gradient(
+            135deg,
+            rgba(255, 231, 166, 0.95),
+            rgba(216, 173, 79, 0.35),
+            rgba(255, 250, 242, 0.75)
+          ),
+          linear-gradient(135deg, var(--dorado), transparent);
+        box-shadow:
+          0 30px 80px rgba(0, 0, 0, 0.45),
+          0 0 70px rgba(216, 173, 79, 0.22);
+        transform-style: preserve-3d;
+        animation: cardEntrance 1.2s ease both;
+        transition: transform 0.18s ease;
+      }
+
+      @keyframes cardEntrance {
+        from {
+          transform: rotateX(16deg) translateY(60px) scale(0.94);
+          opacity: 0;
+          filter: blur(8px);
+        }
+        to {
+          transform: rotateX(0) translateY(0) scale(1);
+          opacity: 1;
+          filter: blur(0);
+        }
+      }
+
+      .card-inner {
+        position: relative;
+        overflow: hidden;
+        border-radius: 31px;
+        min-height: 680px;
+        padding: clamp(26px, 5vw, 58px);
+        background:
+          linear-gradient(
+            145deg,
+            rgba(255, 250, 242, 0.97),
+            rgba(255, 245, 230, 0.92)
+          ),
+          url("data:image/svg+xml,%3Csvg width='220' height='220' viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d8ad4f' stroke-opacity='.12'%3E%3Cpath d='M110 12c23 32 55 43 92 42-25 28-29 62-18 102-33-15-67-12-102 15 5-39-5-71-31-97 39 3 70-15 59-62Z'/%3E%3Ccircle cx='110' cy='110' r='76'/%3E%3C/g%3E%3C/svg%3E");
+        color: var(--texto);
+      }
+
+      .card-inner::before,
+      .card-inner::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      .card-inner::before {
+        width: 470px;
+        height: 470px;
+        right: -170px;
+        top: -150px;
+        background: radial-gradient(
+          circle,
+          rgba(248, 180, 200, 0.36),
+          transparent 65%
+        );
+      }
+
+      .card-inner::after {
+        width: 390px;
+        height: 390px;
+        left: -130px;
+        bottom: -130px;
+        background: radial-gradient(
+          circle,
+          rgba(216, 173, 79, 0.25),
+          transparent 65%
+        );
+      }
+
+      .content {
+        position: relative;
+        z-index: 2;
+        min-height: 580px;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        gap: 28px;
+      }
+
+      .topline {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        color: var(--azul-profundo);
+        animation: fadeDown 1s ease 0.25s both;
+      }
+
+      .institution {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--azul-profundo);
+}
+
+.logo-box {
+  width: 64px;
+  height: 64px;
+  min-width: 64px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(145deg, #ffffff, #fff3d8);
+  border: 2px solid rgba(216, 173, 79, 0.75);
+  box-shadow: 
+    0 12px 24px rgba(7, 21, 40, 0.14),
+    inset 0 0 0 1px rgba(255,255,255,0.8);
+  overflow: hidden;
+}
+
+.logo-iafas {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  display: block;
+}
+
+.institution-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.institution-text span {
+  font-size: clamp(0.72rem, 1.5vw, 0.92rem);
+  letter-spacing: 0.09em;
+  font-weight: 800;
+}
+
+.institution-text strong {
+  margin-top: 4px;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  letter-spacing: 0.14em;
+  font-weight: 900;
+  color: var(--rojo);
+}
+
+      .emblem {
+        width: 58px;
+        height: 58px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        color: white;
+        font-weight: 900;
+        font-family: Arial, Helvetica, sans-serif;
+        background:
+          radial-gradient(circle at 35% 25%, #ffffff 0 7%, transparent 8%),
+          linear-gradient(145deg, #b4162f, #071528 65%);
+        border: 2px solid rgba(216, 173, 79, 0.8);
+        box-shadow: 0 12px 25px rgba(7, 21, 40, 0.22);
+      }
+
+      .date-pill {
+        font-family: Arial, Helvetica, sans-serif;
+        background: rgba(7, 21, 40, 0.08);
+        border: 1px solid rgba(216, 173, 79, 0.45);
+        color: var(--azul-profundo);
+        border-radius: 999px;
+        padding: 12px 18px;
+        font-weight: 800;
+        white-space: nowrap;
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+      }
+
+      .main {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: clamp(24px, 5vw, 58px);
+        align-items: center;
+      }
+
+      .copy {
+        transform-style: preserve-3d;
+      }
+
+      .small {
+        font-family: Arial, Helvetica, sans-serif;
+        color: var(--rojo);
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        font-size: clamp(0.73rem, 1.5vw, 0.92rem);
+        margin-bottom: 14px;
+        animation: fadeUp 1s ease 0.42s both;
+      }
+
+      h1 {
+        font-size: clamp(2.55rem, 7vw, 5.8rem);
+        line-height: 0.9;
+        color: var(--azul-noche);
+        text-shadow:
+          0 2px 0 #fff,
+          0 8px 20px rgba(7, 21, 40, 0.16);
+        letter-spacing: -0.05em;
+        animation: titleReveal 1.25s cubic-bezier(0.18, 0.9, 0.28, 1) 0.55s both;
+      }
+
+      h1 span {
+        display: block;
+        color: var(--dorado);
+        text-shadow:
+          0 2px 0 rgba(255, 255, 255, 0.85),
+          0 15px 28px rgba(216, 173, 79, 0.28);
+      }
+
+      @keyframes titleReveal {
+        from {
+          opacity: 0;
+          transform: translateY(30px) rotateX(18deg);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) rotateX(0);
+        }
+      }
+
+      .message {
+        margin-top: 24px;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #47384a;
+        font-size: clamp(1rem, 2vw, 1.18rem);
+        line-height: 1.75;
+        animation: fadeUp 1s ease 0.75s both;
+      }
+
+      .highlight {
+        color: var(--rojo);
+        font-weight: 800;
+      }
+
+      .visual {
+        position: relative;
+        height: 420px;
+        transform-style: preserve-3d;
+        animation: fadeIn 1.3s ease 0.65s both;
+      }
+
+      .flower-3d {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        transform-style: preserve-3d;
+        animation: floralFloat 5s ease-in-out infinite;
+      }
+
+      @keyframes floralFloat {
+        0%,
+        100% {
+          transform: translateY(0) rotateY(-10deg);
+        }
+        50% {
+          transform: translateY(-14px) rotateY(10deg);
+        }
+      }
+
+      .heart {
+        position: absolute;
+        width: 185px;
+        height: 185px;
+        background: linear-gradient(135deg, #f15b7f, #a51e35);
+        transform: rotate(45deg) translateZ(80px);
+        border-radius: 34px;
+        box-shadow:
+          0 26px 50px rgba(165, 30, 53, 0.28),
+          inset -16px -16px 28px rgba(75, 5, 20, 0.18),
+          inset 12px 12px 28px rgba(255, 255, 255, 0.28);
+      }
+
+      .heart::before,
+      .heart::after {
+        content: "";
+        position: absolute;
+        width: 185px;
+        height: 185px;
+        border-radius: 50%;
+        background: inherit;
+      }
+
+      .heart::before {
+        left: -92px;
+        top: 0;
+      }
+      .heart::after {
+        top: -92px;
+        left: 0;
+      }
+
+      .ring {
+        position: absolute;
+        width: 310px;
+        height: 310px;
+        border-radius: 50%;
+        border: 2px solid rgba(216, 173, 79, 0.8);
+        transform: rotateX(68deg) translateZ(35px);
+        box-shadow: 0 0 40px rgba(216, 173, 79, 0.35);
+        animation: spin 12s linear infinite;
+      }
+
+      .ring.two {
+        width: 255px;
+        height: 255px;
+        border-color: rgba(165, 30, 53, 0.28);
+        animation-direction: reverse;
+        animation-duration: 9s;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotateX(68deg) rotateZ(360deg) translateZ(35px);
+        }
+      }
+
+      .petal {
+        position: absolute;
+        width: 58px;
+        height: 88px;
+        border-radius: 90% 10% 90% 10%;
+        background: linear-gradient(135deg, #ffd4df, #f15b7f);
+        box-shadow:
+          inset 8px 8px 20px rgba(255, 255, 255, 0.4),
+          0 12px 24px rgba(165, 30, 53, 0.18);
+        transform-origin: center 170px;
+      }
+
+      .petal:nth-child(1) {
+        transform: rotate(0deg) translateY(-150px);
+      }
+      .petal:nth-child(2) {
+        transform: rotate(45deg) translateY(-150px);
+      }
+      .petal:nth-child(3) {
+        transform: rotate(90deg) translateY(-150px);
+      }
+      .petal:nth-child(4) {
+        transform: rotate(135deg) translateY(-150px);
+      }
+      .petal:nth-child(5) {
+        transform: rotate(180deg) translateY(-150px);
+      }
+      .petal:nth-child(6) {
+        transform: rotate(225deg) translateY(-150px);
+      }
+      .petal:nth-child(7) {
+        transform: rotate(270deg) translateY(-150px);
+      }
+      .petal:nth-child(8) {
+        transform: rotate(315deg) translateY(-150px);
+      }
+
+      .details {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        animation: fadeUp 1s ease 0.95s both;
+      }
+
+      .detail {
+        position: relative;
+        overflow: hidden;
+        min-height: 118px;
+        padding: 18px;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.68);
+        border: 1px solid rgba(216, 173, 79, 0.35);
+        box-shadow:
+          0 16px 35px rgba(7, 21, 40, 0.09),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.55);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .detail::before {
+        content: "";
+        position: absolute;
+        width: 90px;
+        height: 90px;
+        right: -35px;
+        top: -35px;
+        background: radial-gradient(
+          circle,
+          rgba(216, 173, 79, 0.23),
+          transparent 68%
+        );
+      }
+
+      .detail .label {
+        color: var(--rojo);
+        font-size: 0.75rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.13em;
+        margin-bottom: 9px;
+      }
+
+      .detail .value {
+        color: var(--azul-noche);
+        font-size: clamp(0.97rem, 1.6vw, 1.12rem);
+        font-weight: 800;
+        line-height: 1.35;
+      }
+
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 18px;
+        margin-top: 6px;
+        animation: fadeUp 1s ease 1.1s both;
+      }
+
+      .signature {
+        font-family: Arial, Helvetica, sans-serif;
+        color: #5b4a5d;
+        line-height: 1.55;
+        font-size: 0.98rem;
+      }
+
+      .signature strong {
+        color: var(--azul-profundo);
+        display: block;
+        font-size: 1.05rem;
+      }
+
+      .actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+
+      .btn {
+        appearance: none;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        min-height: 48px;
+        padding: 13px 18px;
+        border-radius: 999px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 900;
+        letter-spacing: 0.02em;
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease,
+          filter 0.25s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-3px);
+        filter: brightness(1.05);
+      }
+
+      .btn-primary {
+        color: white;
+        background: linear-gradient(135deg, var(--rojo), #d44d68);
+        box-shadow: 0 14px 28px rgba(165, 30, 53, 0.26);
+      }
+
+      .btn-secondary {
+        color: var(--azul-noche);
+        background: linear-gradient(135deg, #ffe5a9, #d8ad4f);
+        box-shadow: 0 14px 28px rgba(216, 173, 79, 0.24);
+      }
+
+      .corner {
+        position: absolute;
+        width: 130px;
+        height: 130px;
+        opacity: 0.72;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .corner.tl {
+        top: 18px;
+        left: 18px;
+        border-top: 2px solid var(--dorado);
+        border-left: 2px solid var(--dorado);
+        border-radius: 26px 0 0 0;
+      }
+
+      .corner.br {
+        bottom: 18px;
+        right: 18px;
+        border-bottom: 2px solid var(--dorado);
+        border-right: 2px solid var(--dorado);
+        border-radius: 0 0 26px 0;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(22px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeDown {
+        from {
+          opacity: 0;
+          transform: translateY(-18px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: 24px;
+        z-index: 10;
+        transform: translateX(-50%) translateY(30px);
+        background: rgba(7, 21, 40, 0.92);
+        color: white;
+        padding: 13px 18px;
+        border-radius: 999px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 800;
+        box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.3s ease;
+      }
+
+      .toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+
+      @media (max-width: 850px) {
+        body {
+          padding: 16px;
+        }
+
+        .main {
+          grid-template-columns: 1fr;
+        }
+
+        .visual {
+          height: 310px;
+          order: -1;
+        }
+
+        .heart,
+        .heart::before,
+        .heart::after {
+          width: 130px;
+          height: 130px;
+        }
+
+        .heart::before {
+          left: -65px;
+        }
+        .heart::after {
+          top: -65px;
+        }
+
+        .ring {
+          width: 230px;
+          height: 230px;
+        }
+
+        .ring.two {
+          width: 190px;
+          height: 190px;
+        }
+
+        .details {
+          grid-template-columns: 1fr;
+        }
+
+        .footer,
+        .topline {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .actions {
+          width: 100%;
+          justify-content: flex-start;
+        }
+
+        .btn {
+          width: 100%;
+        }
+      }
+
+      @media print {
+        body {
+          background: white;
+          padding: 0;
+        }
+
+        canvas,
+        .background-glow,
+        .actions,
+        .toast {
+          display: none;
+        }
+
+        .scene {
+          width: 100%;
+        }
+
+        .invitation-card {
+          box-shadow: none;
+          border-radius: 0;
+        }
+
+        .card-inner {
+          border-radius: 0;
+          min-height: 100vh;
+        }
+      }
+      .hero-3d-scene {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: grid;
+        place-items: center;
+        transform-style: preserve-3d;
+        animation: heroFloat 5.5s ease-in-out infinite;
+      }
+
+      @keyframes heroFloat {
+        0%,
+        100% {
+          transform: translateY(0) rotateY(-6deg);
+        }
+        50% {
+          transform: translateY(-13px) rotateY(7deg);
+        }
+      }
+
+      .heart-glow {
+        position: absolute;
+        width: 330px;
+        height: 330px;
+        border-radius: 50%;
+        background:
+          radial-gradient(circle, rgba(248, 180, 200, 0.34), transparent 62%),
+          radial-gradient(circle, rgba(216, 173, 79, 0.24), transparent 72%);
+        filter: blur(3px);
+        transform: translateZ(10px);
+        animation: glowPulse 3.4s ease-in-out infinite;
+      }
+
+      @keyframes glowPulse {
+        0%,
+        100% {
+          opacity: 0.72;
+          transform: scale(0.96) translateZ(10px);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.08) translateZ(10px);
+        }
+      }
+
+      .mini-heart {
+        position: absolute;
+        left: -20px;
+        top: 45px;
+        width: 220px;
+        height: 220px;
+        opacity: 0.92;
+        transform: translateZ(30px) scale(0.62);
+        filter: drop-shadow(0 20px 26px rgba(165, 30, 53, 0.2));
+      }
+
+      .military-mother-img {
+        position: relative;
+        z-index: 4;
+        width: min(108%, 480px);
+        max-height: 455px;
+        object-fit: contain;
+        transform: translateZ(85px);
+        filter: drop-shadow(0 24px 32px rgba(7, 21, 40, 0.25))
+          drop-shadow(0 0 22px rgba(216, 173, 79, 0.15));
+        animation: imageReveal 1.3s cubic-bezier(0.18, 0.9, 0.28, 1) 0.75s both;
+      }
+
+      @keyframes imageReveal {
+        from {
+          opacity: 0;
+          transform: translateY(28px) scale(0.88) translateZ(85px);
+          filter: blur(7px) drop-shadow(0 24px 32px rgba(7, 21, 40, 0.12));
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1) translateZ(85px);
+          filter: drop-shadow(0 24px 32px rgba(7, 21, 40, 0.25))
+            drop-shadow(0 0 22px rgba(216, 173, 79, 0.15));
+        }
+      }
+
+      .military-mother-img:hover {
+        transform: translateZ(95px) scale(1.025);
+        transition: transform 0.35s ease;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="background-glow">
+      <div class="orb one"></div>
+      <div class="orb two"></div>
+    </div>
+
+    <canvas id="particles"></canvas>
+
+    <main class="scene">
+      <section class="invitation-card" id="card">
+        <div class="card-inner">
+          <div class="corner tl"></div>
+          <div class="corner br"></div>
+
+          <div class="content">
+            <header class="topline">
+              <div class="institution">
+                <div class="logo-box">
+                  <img
+                    src="https://iafasfap.site/wp-content/uploads/2025/04/cropped-cropped-IAFAS-FOSFAP_favicon.png"
+                    alt="Logo IAFAS FOSFAP"
+                    class="logo-iafas"
+                  />
+                </div>
+
+                <div class="institution-text">
+                  <span>Fuerza Aérea del Perú</span>
+                  <strong>IAFAS</strong>
+                </div>
+              </div>
+
+              <div class="date-pill">Viernes 08 de mayo · 13:00 h</div>
+            </header>
+
+            <section class="main">
+              <div class="copy">
+                <p class="small">Invitación especial</p>
+
+                <h1>
+                  Día de
+                  <span>la Madre</span>
+                </h1>
+
+                <p class="message">
+                  Con mucho aprecio, la <strong>IAFAS</strong> invita
+                  cordialmente a participar del
+                  <span class="highlight"
+                    >Almuerzo de Confraternidad por el Día de la Madre</span
+                  >, un momento especial para rendir homenaje a quienes
+                  representan amor, fortaleza, entrega y unión familiar.
+                </p>
+              </div>
+
+              <div class="visual" aria-hidden="true">
+                <div class="hero-3d-scene">
+                  <div class="heart-glow"></div>
+
+                  <div class="flower-3d mini-heart">
+                    <div class="ring"></div>
+                    <div class="ring two"></div>
+                    <div class="heart"></div>
+                  </div>
+
+                  <img
+                    class="military-mother-img"
+                    src="madre_dia-removebg-preview.png"
+                    alt="Militar de la Fuerza Aérea abrazando a su madre"
+                  />
+                </div>
+              </div>
+            </section>
+
+            <section class="details">
+              <article class="detail">
+                <div class="label">Actividad</div>
+                <div class="value">
+                  Almuerzo de confraternidad por el Día de la Madre IAFAS
+                </div>
+              </article>
+
+              <article class="detail">
+                <div class="label">Fecha y hora</div>
+                <div class="value">Viernes 08 de mayo<br />13:00 horas</div>
+              </article>
+
+              <article class="detail">
+                <div class="label">Lugar</div>
+                <div class="value">
+                  Av. Petit Thouars 3794, Viejo Fundo ,<br />San Isidro 15046
+                </div>
+              </article>
+            </section>
+
+            <footer class="footer">
+              <div class="signature">
+                <strong>Los esperamos con mucho cariño.</strong>
+                Una celebración preparada para compartir, agradecer y
+                homenajear.
+              </div>
+
+              <div class="actions">
+                <a
+                  class="btn btn-primary"
+                  href="https://maps.app.goo.gl/WW9tfK7CTaaG7T8t8?g_st=iw"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  📍 Ver ubicación
+                </a>
+                <!---
+                
+                <button class="btn btn-secondary" type="button" id="copyBtn">
+                  📋 Copiar datos
+                </button>
+                -->
+              </div>
+            </footer>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="toast" id="toast">Datos copiados correctamente</div>
+
+    <script>
+      const card = document.getElementById("card");
+
+      document.addEventListener("mousemove", (event) => {
+        const rect = card.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = ((y - centerY) / centerY) * -4;
+        const rotateY = ((x - centerX) / centerX) * 4;
+
+        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
+
+      document.addEventListener("mouseleave", () => {
+        card.style.transform = "rotateX(0deg) rotateY(0deg)";
+      });
+
+      const canvas = document.getElementById("particles");
+      const ctx = canvas.getContext("2d");
+      const particles = [];
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+
+      window.addEventListener("resize", resizeCanvas);
+      resizeCanvas();
+
+      function createParticles() {
+        particles.length = 0;
+        const amount = Math.min(90, Math.floor(window.innerWidth / 14));
+
+        for (let i = 0; i < amount; i++) {
+          particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            r: Math.random() * 2.4 + 0.8,
+            speed: Math.random() * 0.45 + 0.16,
+            opacity: Math.random() * 0.45 + 0.18,
+            drift: Math.random() * 0.55 - 0.25,
+          });
+        }
+      }
+
+      function drawParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        particles.forEach((p) => {
+          const gradient = ctx.createRadialGradient(
+            p.x,
+            p.y,
+            0,
+            p.x,
+            p.y,
+            p.r * 5,
+          );
+          gradient.addColorStop(0, `rgba(255, 226, 164, ${p.opacity})`);
+          gradient.addColorStop(1, "rgba(255, 226, 164, 0)");
+
+          ctx.fillStyle = gradient;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r * 5, 0, Math.PI * 2);
+          ctx.fill();
+
+          p.y -= p.speed;
+          p.x += p.drift;
+
+          if (p.y < -20) {
+            p.y = canvas.height + 20;
+            p.x = Math.random() * canvas.width;
+          }
+
+          if (p.x < -20) p.x = canvas.width + 20;
+          if (p.x > canvas.width + 20) p.x = -20;
+        });
+
+        requestAnimationFrame(drawParticles);
+      }
+
+      createParticles();
+      drawParticles();
+
+      const copyBtn = document.getElementById("copyBtn");
+      const toast = document.getElementById("toast");
+
+      copyBtn.addEventListener("click", async () => {
+        const text = `Invitación IAFAS - Almuerzo de confraternidad por el Día de la Madre
+Fecha: Viernes 08 de mayo
+Hora: 13:00 horas
+Lugar: Av. Petit Thouars 3794, San Isidro 15046
+Ubicación: https://maps.app.goo.gl/WW9tfK7CTaaG7T8t8?g_st=iw`;
+
+        try {
+          await navigator.clipboard.writeText(text);
+          showToast("Datos copiados correctamente");
+        } catch (error) {
+          showToast("No se pudo copiar automáticamente");
+        }
+      });
+
+      function showToast(message) {
+        toast.textContent = message;
+        toast.classList.add("show");
+
+        setTimeout(() => {
+          toast.classList.remove("show");
+        }, 2300);
+      }
+    </script>
+  </body>
+</html>
